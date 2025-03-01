@@ -1,0 +1,20 @@
+{
+  "extends": [
+    "@coordinize/typescript-config/nextjs.json",
+    "@coordinize/cms/typescript-config.json"
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./*"],
+      "@coordinize/*": ["../../packages/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "next.config.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts"
+  ]
+}
