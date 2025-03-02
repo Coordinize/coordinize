@@ -1,22 +1,39 @@
 import 'server-only';
 
-import { Pool, neonConfig } from '@neondatabase/serverless';
-import { PrismaNeon } from '@prisma/adapter-neon';
-import ws from 'ws';
 import { PrismaClient } from './generated/client';
 import { keys } from './keys';
 
-const globalForPrisma = global as unknown as { prisma: PrismaClient };
+// Global instance handling
+const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
-neonConfig.webSocketConstructor = ws;
+const isProduction = process.env.NODE_ENV === 'production';
 
-const pool = new Pool({ connectionString: keys().DATABASE_URL });
-const adapter = new PrismaNeon(pool);
+// Define createPrismaClient function
+function createPrismaClient(options = {}): PrismaClient {
+  return new PrismaClient(options);
+}
 
-export const database = globalForPrisma.prisma || new PrismaClient({ adapter });
+// Create Prisma instance with Neon adapter in production
+let database: PrismaClient;
 
-if (process.env.NODE_ENV !== 'production') {
+if (isProduction) {
+  const { Pool, neonConfig } = require('@neondatabase/serverless');
+  const { PrismaNeon } = require('@prisma/adapter-neon');
+  const ws = require('ws');
+
+  neonConfig.webSocketConstructor = ws;
+  const pool = new Pool({ connectionString: keys().DATABASE_URL });
+  const adapter = new PrismaNeon(pool);
+
+  database = globalForPrisma.prisma ?? createPrismaClient({ adapter });
+} else {
+  database = globalForPrisma.prisma ?? createPrismaClient({});
+}
+
+// Store in global variable in development
+if (!isProduction) {
   globalForPrisma.prisma = database;
 }
 
 export * from './generated/client';
+export { database };
