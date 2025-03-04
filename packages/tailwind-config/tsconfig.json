@@ -1,0 +1,8 @@
+{
+  "extends": "@coordinize/typescript-config/react-library.json",
+  "compilerOptions": {
+    "baseUrl": "."
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}

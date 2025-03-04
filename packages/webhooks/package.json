@@ -1,0 +1,19 @@
+{
+  "name": "@coordinize/webhooks",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "clean": "git clean -xdf .cache .turbo dist node_modules",
+    "typecheck": "tsc --noEmit --emitDeclarationOnly false"
+  },
+  "dependencies": {
+    "@coordinize/auth": "*",
+    "@t3-oss/env-nextjs": "^0.12.0",
+    "svix": "^1.61.1",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@coordinize/typescript-config": "*",
+    "typescript": "^5.8.2"
+  }
+}
