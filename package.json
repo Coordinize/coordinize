@@ -1,10 +1,6 @@
 {
   "name": "coordinize",
-  "version": "3.2.28",
-  "bin": {
-    "coordinize": "dist/index.js"
-  },
-  "files": ["dist/index.js"],
+  "version": "0.1.0",
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
@@ -12,10 +8,14 @@
     "format": "ultracite format",
     "test": "turbo test",
     "analyze": "turbo analyze",
-    "bump-deps": "npx npm-check-updates --deep -u -x react-day-picker,tailwindcss && pnpm install",
-    "bump-ui": "npx shadcn@latest add --all --overwrite -c packages/design-system",
-    "migrate": "cd packages/database && npx prisma format && npx prisma generate && npx prisma db push",
-    "clean": "git clean -xdf node_modules"
+    "clean": "git clean -xdf node_modules",
+    "docker:up": "docker-compose up -d",
+    "docker:down": "docker-compose down",
+    "docker:clean": "docker-compose down -v",
+    "db:migrate": "cd packages/database && bun run db:migrate",
+    "db:studio": "cd packages/database && bun run db:studio",
+    "bump-deps": "npx npm-check-updates --deep -u -x react-day-picker,tailwindcss && bun install",
+    "bump-ui": "npx shadcn@latest add --all --overwrite -c packages/design-system"
   },
   "devDependencies": {
     "@auto-it/first-time-contributor": "^11.3.0",

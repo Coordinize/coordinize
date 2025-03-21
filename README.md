@@ -2,13 +2,48 @@
 
 Coordinize is a modern communication platform designed specifically for asynchronous team members working across the globe. It is built to streamline communication, enhance collaboration, and foster transparency within development teams, all while focusing on simplicity and productivity.
 
-## Features
+## Why Coordinize?
 
-- **Asynchronous Communication:** Facilitate seamless discussions and updates across time zones.
+Coordinize is designed to address the unique challenges faced by asynchronous teams in the modern workplace. It offers a range of features to help teams stay organized, communicate effectively, and collaborate seamlessly.
 
-- **Team Management:** Organize your team into groups, projects, and topics for structured communication.
+- ✈️ **Asynchronous Collaboration:** Coordinize is built for asynchronous teams, allowing members to work independently and communicate asynchronously.
 
-- **Integration-Friendly:** Works with tools like GitHub, Linear, and other platforms for issue tracking and project management.
+- 🤝 **Team Management:** Organize your team into groups, projects, and topics for structured communication.
+
+- 🔁 **Integration-Friendly:** Works with tools like GitHub, Linear, and other platforms for issue tracking and project management.
+
+- ✅ **Open Source:** Coordinize is open-source, allowing you to customize and extend it to fit your specific needs.
+
+## Tech Stack
+
+Coordinize is built using modern and reliable technologies:
+
+## App Architecture
+
+- Monorepo
+- Bun
+- React
+- TypeScript
+- Nextjs
+- Prisma ORM
+- Shadcn UI
+- TailwindCSS
+
+### Hosting
+
+- Neon DB (database)
+- Vercel Blob (Storage)
+- Vercel (Website)
+- Upstash (redis)
+- BaseHub CMS (Documentation)
+
+### Services
+
+- Resend (Transactional & Marketing)
+- Knock (notifications)
+- Github Actions (CI/CD)
+- Stripe (payments)
+- BetterStack (Logging)
 
 ## Contributing
 

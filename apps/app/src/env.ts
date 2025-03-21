@@ -1,6 +1,5 @@
 import { keys as analytics } from '@coordinize/analytics/keys';
 import { keys as auth } from '@coordinize/auth/keys';
-import { keys as collaboration } from '@coordinize/collaboration/keys';
 import { keys as database } from '@coordinize/database/keys';
 import { keys as email } from '@coordinize/email/keys';
 import { keys as flags } from '@coordinize/feature-flags/keys';
@@ -15,7 +14,6 @@ export const env = createEnv({
   extends: [
     auth(),
     analytics(),
-    collaboration(),
     core(),
     database(),
     email(),
