@@ -1,8 +1,5 @@
 {
-  "extends": [
-    "@coordinize/typescript-config/nextjs.json",
-    "@coordinize/cms/typescript-config.json"
-  ],
+  "extends": "@coordinize/typescript-config/nextjs.json",
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {

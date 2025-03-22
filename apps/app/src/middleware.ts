@@ -1,19 +1,27 @@
-import { authMiddleware } from '@coordinize/auth/middleware';
+import { type NextRequest, authMiddleware } from '@coordinize/auth/middleware';
 import {
   noseconeMiddleware,
   noseconeOptions,
   noseconeOptionsWithToolbar,
 } from '@coordinize/security/middleware';
-import type { NextMiddleware } from 'next/server';
 import { env } from './env';
 
 const securityHeaders = env.FLAGS_SECRET
   ? noseconeMiddleware(noseconeOptionsWithToolbar)
   : noseconeMiddleware(noseconeOptions);
 
-export default authMiddleware(() =>
-  securityHeaders()
-) as unknown as NextMiddleware;
+export async function middleware(request: NextRequest) {
+  // Run authentication middleware first
+  const authResponse = await authMiddleware(request);
+
+  // If auth middleware redirected or modified the response, return it
+  if (authResponse && authResponse.status !== 200) {
+    return authResponse;
+  }
+
+  // Otherwise, apply security headers
+  return securityHeaders();
+}
 
 export const config = {
   matcher: [

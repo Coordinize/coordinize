@@ -1,5 +1,6 @@
 import { env } from '@/env';
-import { authMiddleware } from '@coordinize/auth/middleware';
+
+import { type NextRequest, authMiddleware } from '@coordinize/auth/middleware';
 import { parseError } from '@coordinize/observability/error';
 import { secure } from '@coordinize/security';
 import {
@@ -9,19 +10,17 @@ import {
 } from '@coordinize/security/middleware';
 import { NextResponse } from 'next/server';
 
-export const config = {
-  // matcher tells Next.js which routes to run the middleware on. This runs the
-  // middleware on all routes except for static assets and Posthog ingest
-  matcher: ['/((?!_next/static|_next/image|ingest|favicon.ico).*)'],
-};
-
 const securityHeaders = env.FLAGS_SECRET
   ? noseconeMiddleware(noseconeOptionsWithToolbar)
   : noseconeMiddleware(noseconeOptions);
 
-export default authMiddleware(async (_auth, request) => {
-  if (!env.ARCJET_KEY) {
-    return securityHeaders();
+export async function middleware(request: NextRequest) {
+  // Run authentication middleware first
+  const authResponse = await authMiddleware(request);
+
+  if (authResponse && authResponse.status !== 200) {
+    // If auth middleware redirected or modified the response, return it
+    return authResponse;
   }
 
   try {
@@ -41,4 +40,10 @@ export default authMiddleware(async (_auth, request) => {
 
     return NextResponse.json({ error: message }, { status: 403 });
   }
-});
+}
+
+export const config = {
+  // matcher tells Next.js which routes to run the middleware on. This runs the
+  // middleware on all routes except for static assets and Posthog ingest
+  matcher: ['/((?!_next/static|_next/image|ingest|favicon.ico).*)'],
+};

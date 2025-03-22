@@ -8,7 +8,7 @@
     "build": "prisma generate --no-hints --schema=./prisma/schema.prisma",
     "clean": "git clean -xdf .cache .turbo dist node_modules",
     "typecheck": "tsc --noEmit --emitDeclarationOnly false",
-    "db:migrate": "cd packages/database && npx prisma format && npx prisma generate && npx prisma db push"
+    "db:migrate": "npx prisma format && npx prisma generate && npx prisma db push"
   },
   "dependencies": {
     "@neondatabase/serverless": "^0.10.4",

@@ -1,41 +1,22 @@
-import { showBetaFeature } from '@coordinize/feature-flags';
-import { createMetadata } from '@coordinize/seo/metadata';
 import type { Metadata } from 'next';
-import { Cases } from './components/cases';
-import { CTA } from './components/cta';
-import { FAQ } from './components/faq';
-import { Features } from './components/features';
-import { Hero } from './components/hero';
-import { Stats } from './components/stats';
-import { Testimonials } from './components/testimonials';
 
-const meta = {
-  title: 'From zero to production in minutes.',
-  description:
-    "next-forge is a production-grade boilerplate for modern Next.js apps. It's designed to have everything you need to build your new SaaS app as quick as possible. Authentication, billing, analytics, SEO, and more. It's all here.",
+const title = 'Acme Inc';
+const description = 'My application.';
+
+export const metadata: Metadata = {
+  title,
+  description,
 };
 
-export const metadata: Metadata = createMetadata(meta);
-
-const Home = async () => {
-  const betaFeature = await showBetaFeature();
-
+const App = () => {
   return (
     <>
-      {betaFeature && (
-        <div className="w-full bg-black py-2 text-center text-white">
-          Beta feature now available
-        </div>
-      )}
-      <Hero />
-      <Cases />
-      <Features />
-      <Stats />
-      <Testimonials />
-      <FAQ />
-      <CTA />
+      <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
+        <div className="grid auto-rows-min gap-4 md:grid-cols-3">Web</div>
+        <div className="min-h-[100vh] flex-1 rounded-xl bg-muted/50 md:min-h-min" />
+      </div>
     </>
   );
 };
 
-export default Home;
+export default App;
